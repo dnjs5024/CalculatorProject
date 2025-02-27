@@ -28,3 +28,13 @@ UI
 4.초기화버튼
 
 5.닫기 버튼
+
+도전과제 
+
+Class
+- ArithmeticCalculator 기능구체화
+- App 실행 
+Interface
+- DataVerification 데이터 검사
+- ArithmeticOperation 사칙연산 기능만
+- -CalculatorFunction 계산기 화면, 기본 기능들 담아주는 함수

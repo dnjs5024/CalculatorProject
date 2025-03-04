@@ -1,6 +1,6 @@
 package com.example.calculator;
 
 @FunctionalInterface
-public interface CalculatorOperation {
+public interface ArithmeticOperation {
     double calculatorOperation(double a, double b);
 }

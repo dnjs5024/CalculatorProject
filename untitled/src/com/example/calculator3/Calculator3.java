@@ -1,36 +1,57 @@
-package com.example.calculator2;
+package com.example.calculator3;
+
 
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
-public class Calculator2 {
+public class Calculator3<T extends Number>{
 
-    private List<Number> resultList = new ArrayList<>();
-    private List<Number> resultBackUpList = new ArrayList<>() ;//계산기 클래스에서 가져온 리스트 담아줄 리스트
+    private List<T> resultList = new ArrayList<>();// 현재 결과값
+    private List<T> resultBackUpList = new ArrayList<>() ;//백업 결과값
+
+    enum Operation{
+        PLUS("+",(a,b)->a+b),
+        SUBTRACT("-",(a,b)->a-b),
+        MULTIPLY("*",(a,b)->a*b),
+        DIVIDE("/",(a,b)->a/b);
+
+        private  CalculatorOperation calculatorOperation;
+        private  String symbol;
+
+
+        private Operation(String symbol,CalculatorOperation calculatorOperation){
+            this.calculatorOperation = calculatorOperation;
+            this.symbol = symbol;
+        }
+        public double getOperation(double a, double b){
+            return calculatorOperation.setOperation(a,b);
+        }
+
+    }
 
     public void doOperator(char symbol,int a,int b){
         Number result = 0;
         boolean isSave = true;
         switch (symbol){
-            case '+': result = a + b;
+            case '+': result = Operation.PLUS.getOperation(a,b);
                 break;
-            case '-': result = a - b;
+            case '-': result = Operation.SUBTRACT.getOperation(a,b);
                 break;
-            case '*': result = a * b;
+            case '*': result = Operation.MULTIPLY.getOperation(a,b);
                 break;
             case '/': if(a == 0 || b == 0){
                 isSave = false;
                 System.out.println("0 으로는 나눌 수 없어요");
-                 }else{
-                    result = (double)a / b;
-                 }
-                 break;
+            }else{
+                result = (double)Math.round(Operation.DIVIDE.getOperation(a,b) * 100) /100;//소수2자리까지 반올림
+            }
+                break;
         }
         if(isSave){//계산이 성공했을때만 저장해줌
-            resultList.add(result);
-            resultBackUpList.add(result);//백업용 데이터 저장
+            resultList.add((T)result);
+            resultBackUpList.add((T)result);//백업용 데이터 저장
             System.out.println("결과 : " + result);
         }
     }
@@ -70,15 +91,14 @@ public class Calculator2 {
     }
 
     //Getter
-    public List<Number> getResultList() {
+    public List<T> getResultList() {
         return resultList;
     }
     //Setter
-    public void setResultList(List<Number> resultList) {
+    public void setResultList(List<T> resultList) {
         this.resultList = resultList;
     }
-    //Getter
-    public List<Number> getResultBackUpList() {
+    public List<T> getResultBackUpList() {
         return resultBackUpList;
     }
 

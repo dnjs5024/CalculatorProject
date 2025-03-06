@@ -1,10 +1,7 @@
 package com.example.calculator3;
 
 
-import java.util.ArrayList;
-import java.util.InputMismatchException;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class Calculator3<T extends Number>{
 
@@ -29,6 +26,9 @@ public class Calculator3<T extends Number>{
             return calculatorOperation.setOperation(a,b);
         }
 
+        public String getSymbol() {
+            return symbol;
+        }
     }
 
     public void doOperator(char symbol,int a,int b){
@@ -53,30 +53,39 @@ public class Calculator3<T extends Number>{
             resultList.add((T)result);
             resultBackUpList.add((T)result);//백업용 데이터 저장
             System.out.println("결과 : " + result);
+
         }
     }
 
     public int insertIntValue(Scanner scanner){
         int num = 0;
+        while(true){
         try{
             System.out.println("정수를 입력하세요");
             num = scanner.nextInt();
+            break;
         } catch (InputMismatchException e) {
-            System.out.println("숫자를 입력하세요");
+            System.out.println("올바른 정수를 입력하세요");
             scanner.nextLine();//scanner 초기화
             return insertIntValue(scanner);
+        }
         }
         return num;
     }
 
-    public char insertStringValue(Scanner scanner){
-        System.out.println("사칙연산 기호를 입력하세요 { * , / , + , - }중에서 입력");
-        char symbol = scanner.next().charAt(0);
-        if(symbol == '*' || symbol == '/' || symbol == '+' || symbol == '-'){
-            return symbol;
-        }else{
+    public static char insertStringValue(Scanner scanner) {
+        while (true) { // 올바른 입력을 받을 때까지 반복
+            System.out.println("사칙연산 기호를 입력하세요 { *, /, +, - } 중에서 입력:");
+            char symbol = scanner.next().charAt(0);
+            String result = Arrays.stream(Operation.values())
+                    .filter(op -> op.getSymbol().equals(String.valueOf(symbol)))
+                    .map(Operation::getSymbol)
+                    .findFirst()
+                    .orElse(null); // 존재하지 않으면 null 반환
+            if (result != null) {
+                return result.charAt(0);
+            }
             System.out.println("사칙연산를 입력하세요");
-            return insertStringValue(scanner);
         }
     }
 

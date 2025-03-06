@@ -6,7 +6,7 @@ import java.util.Scanner;
 public class App3<T> {
 
     private boolean exit = false;//true면 종료
-    
+
     List<T> resultBackUpList ;//계산기 클래스에서 가져온 리스트 담아줄 리스트
 
     public static void main(String[] args) {

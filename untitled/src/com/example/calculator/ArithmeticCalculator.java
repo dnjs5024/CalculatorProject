@@ -1,5 +1,6 @@
 package com.example.calculator;
 
+
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -20,26 +21,6 @@ public class ArithmeticCalculator implements DataVerification,CalculatorFunction
     //생성자
     public ArithmeticCalculator(){
         setCalculatorScreen();
-    }
-
-    // enum
-    enum Operation {
-        SUBTRACT("-",(a,b)-> a-b),
-        MULTIPLY("*",(a,b)-> a*b),
-        DIVIDE("/",(a,b)-> a/b),
-        PLUS("+",(a,b)-> a+b);
-
-        ArithmeticOperation arithmeticOperation;
-
-        String symbol;
-
-        private Operation(String symbol, ArithmeticOperation arithmeticOperation) {
-            this.symbol = symbol;
-            this.arithmeticOperation = arithmeticOperation;
-        }
-        public  double setCalculate(double a,double b){
-            return arithmeticOperation.calculatorOperation(a,b);
-        }
     }
 
     // 계산기 화면에 그려주는 함수
@@ -136,9 +117,13 @@ public class ArithmeticCalculator implements DataVerification,CalculatorFunction
         String[] strings = command.split(regex);
         List<String> splitItem = new ArrayList<>(Arrays.asList(strings));
         String symbol = "";
+        //처음이 기호면 삭제
+        if (splitItem.get(0).equals("+") || splitItem.get(0).equals("-") || splitItem.get(0).equals("*") || splitItem.get(0).equals("/") || splitItem.get(0).equals(".")) {
+            splitItem.remove(0);
+        }
         double sum = 0;
         double result = 0; //총 합
-        Operation c = null;
+        MyOperation c = null;
         List<Object> sumList = new ArrayList<>();// 나중에 더하거나 빼줄 것들 다 모아줌
         double num1 = 0;//1번째 계산 값
         double num2 = 0;//2번째 계산 값
@@ -161,10 +146,10 @@ public class ArithmeticCalculator implements DataVerification,CalculatorFunction
                 num2 = Double.parseDouble(splitItem.get(i+1));
                 if(symbol.equals("*")){
                     System.out.println("*********");
-                    c = Operation.MULTIPLY;
+                    c = MyOperation.MULTIPLY;
                 }else if(symbol.equals("/")){
                     System.out.println("//////");
-                    c = Operation.DIVIDE;
+                    c = MyOperation.DIVIDE;
                 }
                 sum = c.setCalculate(num1,num2);
                 sumList.remove(sumList.size()-2);
@@ -183,10 +168,10 @@ public class ArithmeticCalculator implements DataVerification,CalculatorFunction
             num2 = (double)sumList.get(i+1);
             if(sumList.get(i).equals("+")){
                 System.out.println("++++++++++");
-                c = Operation.PLUS;
+                c = MyOperation.PLUS;
             }else if(sumList.get(i).equals("-")){
                 System.out.println("-------------");
-                c = Operation.SUBTRACT;
+                c = MyOperation.SUBTRACT;
             }
             result = c.setCalculate(num1,num2);
             i++;

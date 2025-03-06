@@ -38,5 +38,6 @@ public class CalcultorMessage {
         }
         System.out.println("resultBackUpList =>"+resultBackUpList);
         System.out.println("resultList =>"+calculator.getResultList());//현재까지 저장된 데이터 보여줌
+        System.out.println("-----------------");
     }
 }

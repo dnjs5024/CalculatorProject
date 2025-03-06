@@ -10,9 +10,9 @@ public class App3<T> {
     List<T> resultBackUpList ;//계산기 클래스에서 가져온 리스트 담아줄 리스트
 
     public static void main(String[] args) {
-        Calculator3<Integer> calculator = new Calculator3<>();//계산기 기능 제공 클래스
+        Calculator3<Number> calculator = new Calculator3<>();//계산기 기능 제공 클래스
         CalcultorMessage calcultorMessage = new CalcultorMessage();//메시지 제공 객체
-        App3<Integer> app = new App3<>();
+        App3<Number> app = new App3<>();
         app.resultBackUpList = calculator.getResultBackUpList();
         Scanner scanner = new Scanner(System.in);
         while (!app.exit) {

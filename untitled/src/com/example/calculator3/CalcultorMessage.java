@@ -3,11 +3,12 @@ package com.example.calculator3;
 import java.util.List;
 import java.util.Scanner;
 
-public class CalcultorMessage {
+public class CalcultorMessage implements CalcultorMessageFunction{
 
     private boolean exit = false;//true면 종료
 
     // 입력한 결과보다 저장된 값들 중 더 큰 결과 값이 있으면 출력해줌
+    @Override
     public void compareResult(Scanner scanner,Calculator3<Number> calculator3){
         System.out.println("정수를 입력하고 더 큰 결과값이 있는지 존재하는지 확인하겠습니까? y 입력시 비교");
         if(scanner.next().equals("y")){
@@ -23,6 +24,7 @@ public class CalcultorMessage {
     }
 
     //데이터 삭제할지
+    @Override
     public boolean deleteCheck(Scanner scanner) {
         System.out.println("첫번째 데이터를 삭제하겠습니까? y 입력 시 삭제");
         String deleteText = scanner.next();
@@ -32,6 +34,7 @@ public class CalcultorMessage {
         return false;
     }
     //계속 계산할지 질문
+    @Override
     public boolean closeCheck(Scanner scanner){
         System.out.println("계속 계산하시겠습니까? 아무 입력 시 계속 : exit 입력 시 종료");
         String exitText = scanner.next();
@@ -43,6 +46,7 @@ public class CalcultorMessage {
         return exit;
     }
     //삭제한 데이터 다시 복구
+    @Override
     public <T> void recoverData(Calculator3 calculator, Scanner scanner , List<T> resultBackUpList){
         System.out.println("데이터를 복구 하시겠습니까? y 입력 시 복구");
         String recoverText = scanner.next();

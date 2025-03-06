@@ -10,7 +10,7 @@ public class Calculator3<T extends Number> implements MyCalculatorFunction,Addit
     private List<T> resultBackUpList = new ArrayList<>() ;//백업 결과값
 
     @Override
-    public void doOperator(char symbol,int a,int b){
+    public void doOperator(char symbol,double a,double b){
         Number result = 0;
         boolean isSave = true;
         switch (symbol){
@@ -20,7 +20,7 @@ public class Calculator3<T extends Number> implements MyCalculatorFunction,Addit
                 break;
             case '*': result = Operation.MULTIPLY.getOperation(a,b);
                 break;
-            case '/': if(a == 0 || b == 0){
+            case '/': if(b == 0){
                 isSave = false;
                 System.out.println("0 으로는 나눌 수 없어요");
             }else{
@@ -39,13 +39,6 @@ public class Calculator3<T extends Number> implements MyCalculatorFunction,Addit
         resultList.add((T)result);
         resultBackUpList.add((T)result);//백업용 데이터 저장
         System.out.println("결과 : " + result);
-        // 현재 계산 결과보다 저장된 값들 중 더 큰 결과 값이 있으면 출력해줌
-        List<String> resultMessage = comepareResultNum((double) result);//List로 변환
-        if(resultMessage.isEmpty()){
-            System.out.println("현재 계산결과보다 더 큰 값이 없습니다.");
-        }else{
-            resultMessage.stream().forEach(item -> System.out.println("더 큰 값은 :"+ item +" 입니다."));
-        }
     }
 
     //현재 계산 결과보다 큰 값 있는지 비교
@@ -57,19 +50,17 @@ public class Calculator3<T extends Number> implements MyCalculatorFunction,Addit
                 .collect(Collectors.toList());
     }
 
-
-
     //정수입력검사메소드
     @Override
-    public int insertIntValue(Scanner scanner){
-        int num = 0;
+    public double insertDoubleValue(Scanner scanner){
+        double num = 0;
         try{
             System.out.println("정수를 입력하세요");
-            num = scanner.nextInt();
+            num = scanner.nextDouble();
         } catch (InputMismatchException e) {
             System.out.println("올바른 정수를 입력하세요");
             scanner.nextLine();//scanner 초기화
-            return insertIntValue(scanner);
+            return insertDoubleValue(scanner);
         }
         return num;
     }

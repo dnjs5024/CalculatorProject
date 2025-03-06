@@ -18,7 +18,7 @@ public class App3<T> {
         while (!app.exit) {
             int a = calculator.insertIntValue(scanner);//정수 받아오는 함수 호출
             int b = calculator.insertIntValue(scanner);//정수 받아오는 함수 호출
-            char symbol = calculator.insertStringValue(scanner);//사칙연산 기호 받아오는 함수 호출
+            char symbol = calculator.insertStringValue(scanner);//사칙연산 기호 받아오는 함수 호출5
             calculator.doOperator(symbol,a,b);//계산 함수 호출
             //데이터를 삭제 할 건지 체크함
             if(calcultorMessage.deleteCheck(scanner) == 1){

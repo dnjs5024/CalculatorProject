@@ -2,6 +2,7 @@ package com.example.calculator3;
 
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Calculator3<T extends Number>{
 
@@ -53,6 +54,17 @@ public class Calculator3<T extends Number>{
             resultList.add((T)result);
             resultBackUpList.add((T)result);//백업용 데이터 저장
             System.out.println("결과 : " + result);
+            // 현재 계산 결과보다 저장된 값들 중 더 큰 결과 값이 있으면 출력해줌
+            double finalResult = (double) result;//람다에서 사용하기 위해 변수 선언
+            List<String> resultMessage = resultList.stream()
+             .filter(resultItem -> (double)resultItem > finalResult )
+             .map(resultItem -> resultItem+"")//String 변환
+             .collect(Collectors.toList());//List로 변환
+            if(resultMessage.isEmpty()){
+                System.out.println("현재 계산결과보다 더 큰 값이 없습니다.");
+            }else{
+                resultMessage.stream().forEach(item -> System.out.println("더 큰 값은 :"+ item +" 입니다."));
+            }
 
         }
     }
@@ -79,7 +91,7 @@ public class Calculator3<T extends Number>{
             char symbol = scanner.next().charAt(0);
             String result = Arrays.stream(Operation.values())
                     .filter(op -> op.getSymbol().equals(String.valueOf(symbol)))
-                    .map(Operation::getSymbol)
+                    .map(Operation::getSymbol)//Operation > String 으로
                     .findFirst()
                     .orElse(null); // 존재하지 않으면 null 반환
             if (result != null) {

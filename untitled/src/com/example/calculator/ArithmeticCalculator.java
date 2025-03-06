@@ -221,6 +221,7 @@ public class ArithmeticCalculator implements DataVerification,CalculatorFunction
                 }else if(c == 61 || c == 42 || c == 43){ // 61 : = , 42 : * , 43 : +
                     if(c == 61){// = 이면 true
                         String inputText = jTextField.getText();// 화면에 보이는 계산식 가져옴
+                        inputText = inputText.replace("=", "");
                         isSymbol = false;//초기화 테스트
                         doCalculate(inputText);//계산하는 함수 호출
                     }else{
